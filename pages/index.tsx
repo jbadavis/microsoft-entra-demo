@@ -1,26 +1,27 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import { useSession, signIn, signOut } from "next-auth/react";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
 
 export default function Home() {
   const { data: session } = useSession();
-  if (session) {
-    return (
-      <>
-        Signed in as {session.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    );
-  }
+
   return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
+    <Box w="75%" maxW="420px" m="0 auto">
+      <Heading my={8}>Microsoft Entra Demo 🔐</Heading>
+      {session ? (
+        <>
+          <Text mb={6} fontSize="lg">
+            Signed in as {session.user?.name}
+          </Text>
+          <Button onClick={() => signOut()}>Sign out</Button>
+        </>
+      ) : (
+        <>
+          <Text mb={6} fontSize="lg">
+            Please sign in using the button below:
+          </Text>
+          <Button onClick={() => signIn()}>Sign In</Button>
+        </>
+      )}
+    </Box>
   );
 }
-
