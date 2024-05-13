@@ -7,6 +7,8 @@ An example Next.js app using the Microsoft Entra Azure service for authenticatio
 ```bash
 bun install
 
+cp .env.example .env.local
+
 bun dev
 ```
 
