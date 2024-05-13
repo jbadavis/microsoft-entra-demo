@@ -1,4 +1,4 @@
-import NextAuth, {AuthOptions} from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import AzureADProvider from "next-auth/providers/azure-ad";
 
 export const authOptions: AuthOptions = {
@@ -10,14 +10,14 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token}) {
-      session.user.groups = token.groups;
+    async session({ session, token }) {
+      session.user.roles = token.roles;
 
       return session;
     },
-    async jwt({ token, profile}) {
+    async jwt({ token, profile }) {
       if (profile) {
-        token.groups = profile.groups 
+        token.roles = profile.roles;
       }
 
       return token;
